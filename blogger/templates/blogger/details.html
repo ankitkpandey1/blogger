@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{% if full %}
+<title>{{full.topicname}}</title>
+<style>
+    p {
+        font-size: smaller;
+        color: gray;
+    }
+</style>
+
+<h1>{{full.topicname}}</h1><br>
+<p>{{full.text}}</p><br>
+
+<h3>Comments</h3>
+<p></p>
+{{full.Comments}} {% endif%}
+
+<body></body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<title>Latest posts</title>
+<style>
+    p {
+        font-size: smaller;
+        color: gray;
+    }
+</style>
+
+{% if latest %}
+<ul>
+    {% for topic in latest %}
+    <li><a href="/blogger/{{topic.id}}/">{{topic.topicname}}</a><br>
+        <p>{{topic.text}}</p>
+    </li><br> {% endfor %}
+</ul>
+
+
+{% endif%}
+
+<body></body>
+
+</html>

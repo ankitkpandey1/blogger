@@ -22,13 +22,8 @@
 
 <p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="comtext" value="Add comments"><br>
-    <input type="submit" value="Submit">
-</form>
 
-
+<a href="{% url 'comments' full.id %}"> Add comments </a>
 
 
 

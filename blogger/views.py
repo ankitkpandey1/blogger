@@ -4,6 +4,8 @@ from .models import Topic, Comments
 from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
+from .forms import CommentForm
+from django.shortcuts import redirect
 
 def home(request):
     latest=Topic.objects.order_by('-pub_date')[:5]
@@ -21,12 +23,21 @@ def details(request, topic_id):
    full=Topic.objects.get(pk=topic_id)
    full.comments_set.all()
    context={'full':full,}     
-   if request.method == "POST":
-       comt=request.POST.get("comtext",None)
-       q=full.comments_set.create(comtext=comt,com_date=timezone.now())
-       q.save()
-       full.comments_set.all()
-       context={'full':full,}   
-       render(request,'blogger/details.html',context)
+   
    return render(request,'blogger/details.html',context)
 
+def comm(request, topic_id):
+    full=Topic.objects.get(pk=topic_id)
+    full.comments_set.all()
+    if request.method == "POST":
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comt=form.cleaned_data["com_text"]
+            q=full.comments_set.create(comtext=comt,com_date=timezone.now())
+            q.save()
+            context={'full':full,}  
+            tx='/blogger/'+str(topic_id)
+            return redirect(tx) 
+    else:
+        form=CommentForm()
+    return render(request,'blogger/commentform.html',{'form':form})

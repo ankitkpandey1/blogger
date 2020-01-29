@@ -1,0 +1,20 @@
+ {% if submitted %}
+<p class="success">
+    Your post was submitted successfully. Thank you.
+</p>
+
+
+{% else %}
+<form method="post">
+
+
+    {{ form1.name.errors }}
+    <p>Name of post {{ form1.name }}</p> <br> <br>{{ form1.txt.errors }} {{ form1.txt }} <br>
+
+    <input type="submit" value="Submit"></td>
+
+    {% csrf_token %}
+
+</form>
+
+{% endif %}

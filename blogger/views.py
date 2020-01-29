@@ -4,7 +4,7 @@ from .models import Topic, Comments
 from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
-from .forms import CommentForm
+from .forms import CommentForm,makepostform
 from django.shortcuts import redirect
 
 def home(request):
@@ -41,3 +41,20 @@ def comm(request, topic_id):
     else:
         form=CommentForm()
     return render(request,'blogger/commentform.html',{'form':form})
+def makepost(request):
+    form1=makepostform()
+    if request.method == "POST":
+        form1=makepostform(request.POST)
+        if form1.is_valid():
+            try:
+                tname=form1.cleaned_data["name"]
+                tx=form1.cleaned_data["txt"]
+                q = Topic(topicname=tname,text=tx, pub_date=timezone.now())
+                q.save()
+                return redirect('/blogger/')
+            except Exception as e:
+                return HttpResponse("Fatal error ")
+    else:
+        form1=makepostform()
+    return render(request,'blogger/makepost.html',{'form1':form1})
+        

@@ -23,3 +23,4 @@ class userform(ModelForm):
 class loginform(forms.Form):
     user_name=forms.CharField(max_length=200)
     user_password=forms.CharField(max_length=50)
+    

@@ -8,6 +8,7 @@ urlpatterns = [
     path('<int:topic_id>/commentform.html',views.comm, name="comments"),
     path('makepost',views.makepost, name='makepost'),
     path('register',views.userreg, name="register user"),
-    path('login',views.login,name="user login")
+    path('login',views.login,name="user login"),
+    path('logout',views.logout,name="user logout"),
         
 ]

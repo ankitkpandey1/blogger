@@ -5,27 +5,46 @@ from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
 from .forms import CommentForm,makepostform,userform,loginform
+from django.contrib import sessions
 from django.shortcuts import redirect
 
+def base(request):
+     request.session['is_logged']=False
+     request.session['id']=0
+     return redirect('/blogger/') 
+     
 def home(request):
+    
     latest=Topic.objects.order_by('-pub_date')[:5]
     output=",".join([q.topicname for q in latest])
     template=loader.get_template('blogger/home.html')
-    
+    loginfo=request.session['is_logged']
+    if loginfo == True:
+        q=User.objects.get(pk=request.session['id'])
+        loginfo=q.username
+        
     context={
-        'latest':latest,
+        'latest':latest, 'loginfo':loginfo
     }
     txt="<h1> Welcome to home page </h1> <br><main>Content will be added soon!</main>"
     return HttpResponse(template.render(context,request))
 
 
+
+
 def details(request, topic_id):
-   full=Topic.objects.get(pk=topic_id)
-   full.comments_set.all()
-   
-   context={'full':full,}     
-   
-   return render(request,'blogger/details.html',context)
+    full=Topic.objects.get(pk=topic_id)
+    full.comments_set.all()
+    userinfo=(full.user.username ==User.objects.get(pk=request.session['id']).username)
+    context={'full':full,'userinfo':userinfo}
+    if (request.method =="POST" and 'del' in request.POST):
+        full.delete()
+        return redirect('/blogger/')
+    return render(request,'blogger/details.html',context)
+
+
+
+
 
 def comm(request, topic_id):
     full=Topic.objects.get(pk=topic_id)
@@ -75,7 +94,7 @@ def userreg(request):
                 q= User(username=usernam,userpassword=userpass,usermail=usermai,created_date=timezone.now())
                 q.save()
                 reuqest.session['id']=q.id
-                return redirect('/blogger')
+                return 
             except Exception as e:
                 return HttpResponse("Fatal Error")
     else:
@@ -92,7 +111,8 @@ def login(request):
                 uspass=form2.cleaned_data['user_password']
                 q=User.objects.get(username=usnam,userpassword=uspass)
                 request.session['id']=q.id
-                return HttpResponse("<h1>Login successful</h1>")
+                request.session['is_logged']=True
+                return redirect('/blogger')
             except: 
                 return HttpResponse("<h1>Invalid details</h1>")
         
@@ -100,4 +120,6 @@ def login(request):
         form2=loginform()
     return render(request,'blogger/login.html',{ 'form2' : form2 })
     
+def logout(request):
+    return redirect('/')
         

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-{% if full %}
+
 <title>{{full.topicname}}</title>
 <style>
     p {
@@ -9,34 +9,31 @@
     }
 </style>
 
-<h1>{{full.topicname}}</h1><br>
-<p>Written by {{full.user.username}} </p> <br>
-<p>{{full.text}}</p><br>
+<body>
+    <h1>{{full.topicname}}</h1><br>
+    <p>Written by {{full.user.username}} </p> <br>
+    <p>{{full.text}}</p><br>
+    <br> {% if userinfo == True %}
+    <form method="POST">
+        <button type="submit" name="del">Delete Post</button> {% csrf_token %}
+    </form>
+    {% endif %}
+    <br>
+    <h3>Comments</h3>
 
-<h3>Comments</h3>
-
-{% for some in full.comments_set.all %}
-<p>{{some.user.username}} said</p><br>
-<p>{{some}}</p>
-{% endfor %}
-<p>{{full.Comments.comtext}}</p>
-{% endif %} {% if error_message %}
-
-<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-
-<a href="{% url 'comments' full.id %}"> Add comments </a>
-
-
+    {% for some in full.comments_set.all %}
+    <p>{{some.user.username}} said</p><br>
+    <p>{{some}}</p>
+    {% endfor %}
+    <p>{{full.Comments.comtext}}</p>
 
 
 
 
+    <a href="{% url 'comments' full.id %}"> Add comments </a>
 
 
 
-
-
-<body></body>
+</body>
 
 </html>

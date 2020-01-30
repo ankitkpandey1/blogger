@@ -15,6 +15,11 @@
         <p>{{topic.text}}</p>
     </li><br> {% endfor %}
 </ul>
+{% if loginfo == False %}
+<a href="/blogger/login">Login</a> {% else %}
+<p>Welcome {{loginfo}}!</p>
+<a href="/blogger/logout">Logout</a> {% endif %}
+
 
 <a href="{% url 'makepost' %}">make a post!</a> {% endif%}
 

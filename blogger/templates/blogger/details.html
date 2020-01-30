@@ -1,37 +1,71 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <title>{{full.topicname}}</title>
+<link rel="stylesheet" href="{% static 'css/blogger.css' %}">
 <style>
     p {
+        padding-left: 5vw;
         font-size: smaller;
-        color: gray;
+        color: rgb(109, 108, 108);
+    }
+    
+    h1 {
+        font-family: Verdana;
+        padding-left: 5vw;
+        padding-top: 1.3vw;
+        list-style-type: none;
+        background-color: whitesmoke;
+    }
+    
+    .dele {
+        padding-left: 5vw;
+    }
+    
+    .comment {
+        padding-left: 5vw;
+    }
+    
+    .usercom {
+        color: slateblue;
     }
 </style>
 
 <body>
+    <header>MyBlogger! </header>
+    <ul id="menu">
+        <li class="menuclass"><a class="menuitem" href="/blogger">Home</a></li>
+        <li class="menuclass"><a class="menuitem" href="">Profile</a></li>
+        <li class="menuclass"><a class="menuitem" href="">Help</a></li>
+        <li class="menuclass"><a class="menuitem" href="">About</a></li>
+    </ul>
+
+
     <h1>{{full.topicname}}</h1><br>
-    <p>Written by {{full.user.username}} </p> <br>
+    <p>Written by {{full.user.username}} </p>
+    <p>Date published: {{full.pub_date}}</p><br>
     <p>{{full.text}}</p><br>
     <br> {% if userinfo == True %}
-    <form method="POST">
-        <button type="submit" name="del">Delete Post</button> {% csrf_token %}
-    </form>
+    <div class="dele">
+        <form method="POST"> <br>
+            <button type="submit" name="del">Delete Post</button> {% csrf_token %}
+        </form>
+    </div>
     {% endif %}
     <br>
-    <h3>Comments</h3>
+    <div class="comment">
+        <h4>Comments</h4>
 
-    {% for some in full.comments_set.all %}
-    <p>{{some.user.username}} said</p><br>
-    <p>{{some}}</p>
-    {% endfor %}
-    <p>{{full.Comments.comtext}}</p>
+        {% for some in full.comments_set.all %}
+        <p class="usercom">{{some.user.username}} said on {{some.com_date}}</p>
+        <p>{{some}}</p>
+        {% endfor %}
+        <p>{{full.Comments.comtext}}</p>
 
 
-
-
-    <a href="{% url 'comments' full.id %}"> Add comments </a>
-
+        <a href="{% url 'comments' full.id %}"> Add comments </a>
+    </div>
 
 
 </body>

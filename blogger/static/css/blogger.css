@@ -1,0 +1,90 @@
+p {
+    font-size: smaller;
+    color: grey;
+    font-family: 'Lucida Sans';
+}
+
+header {
+    font-size: 20px;
+    padding-left: 2vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    background-color: darkslateblue;
+    color: white;
+    text-emphasis: bold;
+    text-align: left;
+    text-shadow: bisque;
+    text-decoration-color: blue;
+    font-weight: bolder;
+    font-family: cursive;
+}
+
+#posts {
+    font-family: Verdana;
+    padding-left: 5vw;
+    padding-top: 1.3vw;
+    list-style-type: none;
+    background-color: whitesmoke;
+}
+
+#postlist {
+    list-style-type: none;
+}
+
+.allposts {
+    display: block;
+    width: 40vw;
+    text-decoration: none;
+    text-shadow: aquamarine;
+    color: black;
+    font-size: large;
+}
+
+.allposts:hover {
+    padding-top: 1.2vw;
+    background-color: gray;
+    padding-bottom: 1.2vw;
+}
+
+#menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.menuclass {
+    float: left;
+}
+
+.menuitem {
+    display: block;
+    width: 3vw;
+    color: white;
+    text-align: center;
+    padding: 1vw 1vw;
+    text-decoration: none;
+}
+
+.menuitem:hover {
+    background-color: #111;
+}
+
+#login {
+    padding-top: 2.7vw;
+    padding-left: 0.3vw;
+    float: left;
+    width: 4vw;
+    list-style-type: none;
+    position: relative;
+}
+
+.log {
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.writepost {
+    position: sticky;
+}

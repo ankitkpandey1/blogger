@@ -15,7 +15,7 @@ def base(request):
      
 def home(request):
     
-    latest=Topic.objects.order_by('-pub_date')[:5]
+    latest=Topic.objects.order_by('-pub_date')
     output=",".join([q.topicname for q in latest])
     template=loader.get_template('blogger/home.html')
     loginfo=request.session['is_logged']

@@ -1,27 +1,53 @@
+{% load static %}
+
 <!DOCTYPE html>
+
 <html>
 <title>Latest posts</title>
-<style>
-    p {
-        font-size: smaller;
-        color: gray;
+<link rel="stylesheet" href="{% static 'css/blogger.css' %}">
+<script>
+    function foot() {
+        getElementbyID(3).innerHTML(Date())
     }
-</style>
+</script>
 
 <body>
-    {% if latest %}
-    <ul>
-        {% for topic in latest %}
-        <li><a href="/blogger/{{topic.id}}/">{{topic.topicname}}</a><br>
-            <p>{{topic.text}}</p>
-        </li><br> {% endfor %}
+    <header>MyBlogger! </header>
+    <ul id="menu">
+        <li class="menuclass"><a class="menuitem" href="/blogger">Home</a></li>
+        <li class="menuclass"><a class="menuitem" href="">Profile</a></li>
+        <li class="menuclass"><a class="menuitem" href="">Help</a></li>
+        <li class="menuclass"><a class="menuitem" href="">About</a></li>
     </ul>
-    {% if loginfo == False %}
-    <a href="/blogger/login">Login</a>
-    <p>Login to make a post</p> {% else %}
-    <p>Welcome {{loginfo}}! </p>
-    <a href="/blogger/logout">Logout</a><br><a href="{% url 'makepost' %}">make a post!</a> {% endif %} {% endif%}
 
+
+    <div id="login">
+        {% if loginfo == False %}
+        <a class="log" href="/blogger/login">Login</a>
+        <p>Login to make a post</p> {% else %}
+        <p>Welcome {{loginfo}}! </p>
+        <a class="log" href="/blogger/logout">Logout</a><br><a class="writepost" href="{% url 'makepost' %}">make a post!</a> {% endif %}
+
+    </div>
+
+
+
+
+
+
+
+    <div id="posts">
+        {% if latest %}
+        <ul id="postlist">
+            {% for topic in latest %}
+            <li><a class="allposts" href="/blogger/{{topic.id}}/">{{topic.topicname}}</a><br>
+                <p>{{topic.text}}</p>
+            </li><br> {% endfor %}
+        </ul>
+    </div>
+
+    {% endif%}
+    <footer id="3"></footer>
 </body>
 
 </html>

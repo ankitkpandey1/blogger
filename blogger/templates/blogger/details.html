@@ -63,8 +63,10 @@
         {% endfor %}
         <p>{{full.Comments.comtext}}</p>
 
-
-        <a href="{% url 'comments' full.id %}"> Add comments </a>
+        {% if userinfo != 'Not logged in' %}
+        <a href="{% url 'comments' full.id %}"> Add comments </a> {% else %}
+        <p>Login to comment</p>
+        {% endif %}
     </div>
 
 

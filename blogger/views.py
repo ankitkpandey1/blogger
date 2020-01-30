@@ -35,7 +35,12 @@ def home(request):
 def details(request, topic_id):
     full=Topic.objects.get(pk=topic_id)
     full.comments_set.all()
-    userinfo=(full.user.username ==User.objects.get(pk=request.session['id']).username)
+    if request.session['is_logged']== True:
+        userinfo=(full.user.username ==User.objects.get(pk=request.session['id']).username)
+    else:
+        userinfo='Not logged in'
+        
+    
     context={'full':full,'userinfo':userinfo}
     if (request.method =="POST" and 'del' in request.POST):
         full.delete()

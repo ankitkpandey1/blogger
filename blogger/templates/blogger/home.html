@@ -8,21 +8,20 @@
     }
 </style>
 
-{% if latest %}
-<ul>
-    {% for topic in latest %}
-    <li><a href="/blogger/{{topic.id}}/">{{topic.topicname}}</a><br>
-        <p>{{topic.text}}</p>
-    </li><br> {% endfor %}
-</ul>
-{% if loginfo == False %}
-<a href="/blogger/login">Login</a> {% else %}
-<p>Welcome {{loginfo}}!</p>
-<a href="/blogger/logout">Logout</a> {% endif %}
+<body>
+    {% if latest %}
+    <ul>
+        {% for topic in latest %}
+        <li><a href="/blogger/{{topic.id}}/">{{topic.topicname}}</a><br>
+            <p>{{topic.text}}</p>
+        </li><br> {% endfor %}
+    </ul>
+    {% if loginfo == False %}
+    <a href="/blogger/login">Login</a>
+    <p>Login to make a post</p> {% else %}
+    <p>Welcome {{loginfo}}! </p>
+    <a href="/blogger/logout">Logout</a><br><a href="{% url 'makepost' %}">make a post!</a> {% endif %} {% endif%}
 
-
-<a href="{% url 'makepost' %}">make a post!</a> {% endif%}
-
-<body></body>
+</body>
 
 </html>
